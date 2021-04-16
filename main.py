@@ -10,4 +10,6 @@ def read_root():
 @app.post("/color")
 def getColor(payload: dict = Body(...)):
     colors = getColorFromImage(payload["url"],payload["name"])
-    return {"data":colors}
+    if not colors:
+        return {"StatusCode":404}
+    return {"StatusCode":200,"data":colors}

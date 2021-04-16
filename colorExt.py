@@ -15,10 +15,13 @@ def getRBGarray(tupleArray):
 
 def downloadImage(URL,name):
     r = requests.get(URL)
-    path = f"{temp_dir}/{name}.jpg"
-    with open(path, "wb") as f:
-        f.write(r.content)
-    return path
+    if r.status_code == 200:
+        path = f"{temp_dir}/{name}.jpg"
+        with open(path, "wb") as f:
+            f.write(r.content)
+        return path
+    else:
+        return None 
 
 def extractColors(path):
     colors, pixel_count = extcolors.extract_from_path(path)
@@ -31,8 +34,13 @@ def cleanUp(path):
         print(f"{path} not found")
 
 def getColorFromImage(url,name):
-    path = downloadImage(url,name)    #download and save the image
-    colors = extractColors(path)          #extract colors from the image
-    cleanUp(path)                    #delete the image
+    path = downloadImage(url,name)
+    #download and save the image
+    if not path:
+        return None
+    #extract colors from the image
+    colors = extractColors(path)  
+    #delete the image        
+    cleanUp(path)                    
     return colors                     
 

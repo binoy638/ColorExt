@@ -8,6 +8,10 @@ requests = "*"
 extcolors = "*"
 fastapi = "*"
 uvicorn = "*"
+pydantic = "*"
+python-multipart = "*"
+redis = "*"
+python-dotenv = "*"
 
 [dev-packages]
 

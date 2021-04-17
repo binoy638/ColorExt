@@ -8,7 +8,7 @@ import redis
 
 load_dotenv()
 app = FastAPI()
-cache = redis.from_url(url=os.environ.get("URL"),decode_responses=True)
+cache = redis.from_url(url=os.environ.get("REDIS_URL"),decode_responses=True)
 
 
 @app.get("/")

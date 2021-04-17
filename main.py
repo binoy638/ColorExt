@@ -15,7 +15,7 @@ cache = redis.from_url(url=os.environ.get("URL"),decode_responses=True)
 def read_root():
     return {"Status": "Server is ready"}
 #https://i.scdn.co/image/ab67616d00001e02ed3faf75cfde73ebb4734162
-@app.post("/color",status_code=200)
+@app.post("/url_color",status_code=200)
 def getColor(payload: dict = Body(...)):
     url = payload["url"]
     isCached = cache.get(url)
@@ -29,7 +29,7 @@ def getColor(payload: dict = Body(...)):
             raise HTTPException(status_code=404, detail="Could not download image")
     return {"colors":colors}
 
-@app.post("/image",status_code=200)
+@app.post("/file_color",status_code=200)
 async def image(image: UploadFile = File(...)):
     path = f"temp/{image.filename}"
     with open(path, "wb") as buffer:

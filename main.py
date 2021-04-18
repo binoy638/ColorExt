@@ -1,4 +1,5 @@
 from fastapi import Body,FastAPI, File, UploadFile, HTTPException
+from fastapi.middleware.cors import CORSMiddleware
 from colorExt import getColorFromImage,getColorFromImage_
 from dotenv import load_dotenv
 import shutil
@@ -8,6 +9,18 @@ import redis
 
 load_dotenv()
 app = FastAPI()
+
+origins = ["*"]
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
+
 cache = redis.from_url(url=os.environ.get("REDIS_URL"),decode_responses=True)
 
 
